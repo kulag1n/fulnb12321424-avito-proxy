@@ -8,6 +8,11 @@ export default async function handler(req, res) {
   const { code } = req.query;
   if (!code) return res.status(400).json({ error: 'Missing "code" parameter' });
 
+  // Собираем точный redirect_uri текущего деплоя
+  const proto = req.headers['x-forwarded-proto'] || 'https';
+  const host = req.headers['x-forwarded-host'] || req.headers.host;
+  const redirectUri = `${proto}://${host}/api/oauth-callback`;
+
   try {
     const tokenResp = await fetch('https://www.avito.ru/oauth/token', {
       method: 'POST',
@@ -17,7 +22,7 @@ export default async function handler(req, res) {
         code,
         client_id: process.env.AVITO_CLIENT_ID,
         client_secret: process.env.AVITO_CLIENT_SECRET,
-        redirect_uri: process.env.AVITO_REDIRECT_URI
+        redirect_uri: redirectUri
       })
     });
 
