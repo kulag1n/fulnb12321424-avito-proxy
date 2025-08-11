@@ -1,24 +1,18 @@
-// /api/reviews.js
+require('dotenv').config();
+const fetch = require('node-fetch');
 
-export default async function handler(req, res) {
-  const token = req.headers.authorization?.replace('Bearer ', '');
+module.exports = async function handler(req, res) {
+  const token = req.headers.authorization?.split(' ')[1];
 
-  if (!token) {
-    return res.status(401).json({ error: 'Access token required in Authorization header.' });
-  }
+  const response = await fetch('https://api.avito.ru/core/v1/items/reviews', {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Client-Id': process.env.AVITO_CLIENT_ID
+    }
+  });
 
-  try {
-    const response = await fetch('https://api.avito.ru/core/v1/reviews', {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        'Client-Id': 'LBqPURrC3ihc-LRAj6S1'
-      }
-    });
+  const data = await response.json();
+  res.status(200).json(data);
+};
 
-    const reviews = await response.json();
-
-    return res.status(200).json(reviews);
-  } catch (error) {
-    return res.status(500).json({ error: 'Failed to fetch reviews', details: error.message });
-  }
-}
