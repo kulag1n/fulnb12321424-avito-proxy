@@ -9,12 +9,12 @@ export default async function handler(req, res) {
     method: "POST",
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
-      Authorization: "Basic " + Buffer.from("YOUR_CLIENT_ID:YOUR_CLIENT_SECRET").toString("base64"),
+      Authorization: "Basic " + Buffer.from("YAWW3KcdXMl9jEQyse35:UduRFoVWHe61ZJip_HC9DNZ1-zuusium3c-OVti7").toString("base64"),
     },
     body: new URLSearchParams({
       grant_type: "authorization_code",
       code: code,
-      redirect_uri: "https://fulnb12321424-avito-proxy.vercel.app/api/oauth-callback",
+      redirect_uri: "https://smolmaf.ru",
     }),
   });
 
