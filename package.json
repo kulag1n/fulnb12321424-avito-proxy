@@ -1,5 +1,12 @@
 {
   "name": "fulnb12321424-avito-proxy",
   "private": true,
-  "type": "module"
+  "type": "module",
+  "scripts": {
+    "dev": "node api/health.js",
+    "start": "node api/health.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.0.3"
+  }
 }
