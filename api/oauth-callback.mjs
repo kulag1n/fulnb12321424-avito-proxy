@@ -1,6 +1,4 @@
 // oauth-callback.mjs
-import fetch from 'node-fetch';
-
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', 'https://smolmaf.ru');
   res.setHeader('Access-Control-Allow-Methods', 'GET,POST,OPTIONS');
